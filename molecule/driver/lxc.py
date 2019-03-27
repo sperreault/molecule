@@ -30,9 +30,9 @@ class LXC(base.Base):
     default driver used in Molecule.
 
     Molecule leverages Ansible's `lxc_container`_ module, by mapping variables
-    from `molecule.yml` into `create.yml` and `destroy.yml`.
+    from ``molecule.yml`` into ``create.yml`` and ``destroy.yml``.
 
-    .. _`lxc_container`: http://docs.ansible.com/ansible/latest/lxc_container_module.html
+    .. _`lxc_container`: https://docs.ansible.com/ansible/latest/lxc_container_module.html
 
     .. code-block:: yaml
 
@@ -41,7 +41,7 @@ class LXC(base.Base):
 
     .. code-block:: bash
 
-        $ sudo pip install lxc-python2
+        $ pip install molecule[lxc]
 
     Provide the files Molecule will preserve upon each subcommand execution.
 

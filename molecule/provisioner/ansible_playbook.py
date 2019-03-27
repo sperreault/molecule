@@ -29,15 +29,15 @@ LOG = logger.get_logger(__name__)
 class AnsiblePlaybook(object):
     def __init__(self, playbook, config, out=LOG.out, err=LOG.error):
         """
-        Sets up the requirements to execute `ansible-playbook` and returns
+        Sets up the requirements to execute ``ansible-playbook`` and returns
         None.
 
         :param playbook: A string containing the path to the playbook.
         :param config: An instance of a Molecule config.
         :param out: An optional function to process STDOUT for underlying
-         :func:`sh` call.
+         :func:``sh`` call.
         :param err: An optional function to process STDERR for underlying
-         :func:`sh` call.
+         :func:``sh`` call.
         :returns: None
         """
         self._ansible_command = None
@@ -50,12 +50,15 @@ class AnsiblePlaybook(object):
 
     def bake(self):
         """
-        Bake an `ansible-playbook` command so it's ready to execute and returns
-        None.
+        Bake an ``ansible-playbook`` command so it's ready to execute and
+        returns ``None``.
 
         :return: None
         """
-        self.add_cli_arg('inventory', self._config.provisioner.inventory_file)
+        # Pass a directory as inventory to let Ansible merge the multiple
+        # inventory sources located under
+        self.add_cli_arg('inventory',
+                         self._config.provisioner.inventory_directory)
         options = util.merge_dicts(self._config.provisioner.options, self._cli)
         verbose_flag = util.verbose_flag(options)
         if self._playbook != self._config.provisioner.playbooks.converge:
@@ -78,7 +81,7 @@ class AnsiblePlaybook(object):
 
     def execute(self):
         """
-        Executes `ansible-playbook` and returns a string.
+        Executes ``ansible-playbook`` and returns a string.
 
         :return: str
         """

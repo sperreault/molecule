@@ -4,7 +4,9 @@ Examples
 
 A good source of examples are the `scenario`_ functional tests.
 
-.. _`scenario`: https://github.com/metacloud/molecule/tree/master/test/scenarios/driver
+.. _`scenario`: https://github.com/ansible/molecule/tree/master/test/scenarios/driver
+
+.. _docker-usage-example:
 
 Docker
 ======
@@ -12,7 +14,7 @@ Docker
 Molecule can be executed via an Alpine Linux container by leveraging dind
 (Docker in Docker).  Currently, we only build images for the latest version
 of Ansible and Molecule.  In the future we may break this out into Molecule/
-Ansible versioned pairs.  The images are located on `Docker Hub`_.
+Ansible versioned pairs.  The images are located on `quay.io`_.
 
 To test a role, change directory into the role to test, and execute Molecule as
 follows.
@@ -20,13 +22,13 @@ follows.
 .. code-block:: bash
 
     docker run --rm -it \
-        -v '$(pwd)':/tmp/$(basename "${PWD}"):ro \
+        -v "$(pwd)":/tmp/$(basename "${PWD}"):ro \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -w /tmp/$(basename "${PWD}") \
-        retr0h/molecule:latest \
-        sudo molecule test
+        quay.io/ansible/molecule:2.20 \
+        molecule test
 
-.. _`Docker Hub`: https://hub.docker.com/r/retr0h/molecule/
+.. _`quay.io`: https://quay.io/repository/ansible/molecule
 
 Monolith Repo
 =============
@@ -52,7 +54,7 @@ test roles from a monolith repo.
             └── README.md
 
 The role initialized with Molecule (baz in this case) would simply reference
-the dependant roles via it's `playbook.yml` or meta dependencies.
+the dependant roles via it's ``playbook.yml`` or meta dependencies.
 
 Molecule can test complex scenarios leveraging this technique.
 
@@ -61,7 +63,7 @@ Molecule can test complex scenarios leveraging this technique.
     $ cd monolith-repo/roles/baz
     $ molecule test
 
-Molecule is simply setting the `ANSIBLE_*` environment variables.  To view the
+Molecule is simply setting the ``ANSIBLE_*`` environment variables.  To view the
 environment variables set during a Molecule operation pass the ``--debug``
 flag.
 
@@ -77,7 +79,7 @@ flag.
     ANSIBLE_ROLES_PATH: /private/tmp/monolith-repo/roles:/private/tmp/monolith-repo/roles/baz/molecule/default/.molecule/roles
 
 Molecule can be customized any number of ways.  Updating the provisioner's env
-section in `molecule.yml` to suit the needs of the developer and layout of the
+section in ``molecule.yml`` to suit the needs of the developer and layout of the
 project.
 
 .. code-block:: yaml
@@ -115,7 +117,7 @@ The developer can also opt to start the container with extended privileges.
 
     Use caution when using `privileged` mode. [2]_ [3]_
 
-.. code-block:: bash
+.. code-block:: yaml
 
     platforms:
       - name: instance
@@ -179,7 +181,7 @@ Playbooks and tests can be shared across scenarios.
     │       └── molecule.yml
 
 Tests can be shared across scenarios.  In this example the `tests` directory
-lives in a shared location and `molecule.yml` is points to the shared tests.
+lives in a shared location and ``molecule.yml`` is points to the shared tests.
 
 .. code-block:: yaml
 

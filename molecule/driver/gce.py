@@ -36,9 +36,9 @@ class GCE(base.Base):
     has deployed project wide ssh key.
 
     Molecule leverages Ansible's `gce_module`_, by mapping variables from
-    `molecule.yml` into `create.yml` and `destroy.yml`.
+    ``molecule.yml`` into ``create.yml`` and ``destroy.yml``.
 
-    .. _`gce_module`: http://docs.ansible.com/ansible/latest/gce_module.html
+    .. _`gce_module`: https://docs.ansible.com/ansible/latest/gce_module.html
 
     .. code-block:: yaml
 
@@ -49,7 +49,7 @@ class GCE(base.Base):
 
     .. code-block:: bash
 
-        $ sudo pip install apache-libcloud
+        $ pip install molecule[gce]
 
     Change the options passed to the ssh client.
 

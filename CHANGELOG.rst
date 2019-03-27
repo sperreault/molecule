@@ -2,10 +2,78 @@
 History
 *******
 
-Unreleased
-==========
+2.20
+====
+
+Important Changes
+-----------------
+
+* Project now maintained by the Ansible Team, see `Move to Red Hat`_ for details
+* Docker Container now hosted on `quay.io`_
+
+.. _`Move to Red Hat`: https://molecule.readthedocs.io/en/latest/contributing.html#move-to-red-hat
+.. _`quay.io`: https://quay.io/repository/ansible/molecule
+
+Other
+-----
+
+* Molecule docker images will use the following convention on tags going forwards:
+
+  * ``latest``: corresponds to the master branch, which should be viewed as unstable
+  * ``2.20``: Git based tags
+  * ``2.20a1``: pre-releases tags
+
+* Molecule docker image no longer requires ``sudo`` when invoking ``molecule``.
+* Molecule docker image no longer specifies ``USER molecule``.
+* Officially advertise support for Python 3.5.
+* Remove mandatory ``-r`` option for ``molecule init scenario``.
+* Make the default scenario use the parent folder.
+* Fix support for honouring environment variables such as ``MOLECULE_DEBUG``.
+* Allow to customise the location of the ``Dockerfile.j2`` with the ``dockerfile`` option for the Docker driver.
+* Add integer type coercion for the ``exposed_ports`` platform option.
+* Add support for honouring ``PY_COLORS`` environment variable.
+* Disable YAML lint truthy rule by default.
+* Add validation for non-unique platform instance names.
+* Add 'Getting Started' guide to the documentation for the benefit of new users.
+* Allow to specify extra inventory sources not created by Molecule.
+* Avoid including assets in the package ``sdist``.
+* Add ``openssh-client`` to the Molecule Docker image.
+* Fix ``ca-certificates`` installation for OpenSUSE.
+* Add ``purge_networks`` option to the Docker driver.
+* Add ``pid_mode`` option to the Docker driver.
+* Constrain ``ansible-lint`` to ``>=4.0.2,<5``.
+* Add the Linode driver (API v3).
+* Provide documented example for using ``systemd`` enabled Docker images.
+* Add ``winrm`` connection support for the delegated driver.
+* Remove usage of ``sudo pip ..`` in driver installation documentation.
+* Add ``override_command`` option to the Docker driver for overriding ``CMD`` directives.
+* Only recommend to install ``'molecule[docker]'`` in the ``INSTALL.rst`` for the Docker driver.
+* Sort scenario execution order by directory name.
+* Fix Python package install for Docker ``prepare.yml`` on Fedora Rawhide.
+* Update SHA-256 hash for the Goss binary.
+* Remove ``Detox`` (deprecated) configuration example from ``Tox`` documentation.
+* Add ``CODE_OF_CONDUCT.md``.
+* Add optional ``cleanup`` sequence step.
+* Allow to customise configuration file location with ``MOLECULE_GLOB`` environment variable.
+* Molecule can now be called as a Python module (``python -m molecule``). Patch by `@ssbarnea`_.
+* Add `Travis CI integration`_ and fix related test issues.
+* Add Docker ``buildargs`` option for configuring the ``docker_image`` ``create.yml`` build step.
+
+.. _`@ssbarnea`: https://github.com/ssbarnea
+.. _`Travis CI integration`: https://travis-ci.com/ansible/molecule
+
+2.19
+====
 
 * Bumped testinfra to 1.16.0 due to testinfra bug.
+* Allows lowercase environment variables in the Docker scheme.
+* Removes local mode from LXD documentation.
+
+Important Changes
+-----------------
+
+Last release by :gh:`@retr0h <retr0h>`.  Subsequent releases will be made by
+the Ansible team.
 
 2.18.1
 ======
@@ -96,7 +164,7 @@ Unreleased
 ====
 
 * Add pre-validation.
-* MOLECULE_ special variables available in molecule.yml.
+* ``MOLECULE_`` special variables available in molecule.yml.
 * Log Vagrant stdout to a file in MOLECULE_EPHEMERAL_DIRECTORY.
 * Reintroduce base config merging.
 * Corrected unit tests to work with tox.
@@ -110,7 +178,7 @@ Unreleased
 Important Changes
 -----------------
 
-* MOLECULE_ special variables available in molecule.yml.
+* ``MOLECULE_`` special variables available in molecule.yml.
 * Molecule introduces a new CLI option `--base-config`, which is
   loaded prior to each scenario's `molecule.yml`.  This allows
   developers to specify a base config, to help reduce repetition
@@ -384,7 +452,7 @@ Breaking Changes
 * Correct env path qualification.
 * Add sudo package to Fedora section of Dockerfile template.
 * Correct ANSIBLE_ROLES_PATH path component.
-* Allow re-run of prepare playbook. 
+* Allow re-run of prepare playbook.
 
 2.3
 ===
@@ -465,18 +533,17 @@ Breaking Changes
 * See Molecule v1 to v2 `Porting Guide`_.
 * Molecule no longer defaults to passing the `--become` flag to the
   `ansible-playbook` command.
-* Roles are linted with `Yamllint`_ vs v1's custom linter.
+* Roles are linted with :gh:`Yamllint <adrienverge/yamllint>` vs v1's custom linter.
 
-.. _`GCE Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#gce
-.. _`EC2 Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#ec2
-.. _`Goss Verifier`: http://molecule.readthedocs.io/en/latest/configuration.html#goss
-.. _`LXC Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#lxc
-.. _`LXD Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#lxd
-.. _`OpenStack Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#openstack
-.. _`Porting Guide`: http://molecule.readthedocs.io/en/latest/porting.html
-.. _`Scenarios`: http://molecule.readthedocs.io/en/latest/configuration.html#scenario
-.. _`Delegated Driver`: http://molecule.readthedocs.io/en/latest/configuration.html#delegated
-.. _`Yamllint`: https://github.com/adrienverge/yamllint
+.. _`GCE Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#gce
+.. _`EC2 Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#ec2
+.. _`Goss Verifier`: https://molecule.readthedocs.io/en/latest/configuration.html#goss
+.. _`LXC Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#lxc
+.. _`LXD Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#lxd
+.. _`OpenStack Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#openstack
+.. _`Porting Guide`: https://molecule.readthedocs.io/en/latest/porting.html
+.. _`Scenarios`: https://molecule.readthedocs.io/en/latest/configuration.html#scenario
+.. _`Delegated Driver`: https://molecule.readthedocs.io/en/latest/configuration.html#delegated
 
 1.25.1
 ======
@@ -576,7 +643,7 @@ Breaking Changes
 * The `host_vars` and `group_vars` section of molecule.yml no longer accepts a
   list, rather a dict similar to Ansible's `vars usage`_.
 
-.. _`vars usage`: http://docs.ansible.com/ansible/playbooks_variables.html#variables-defined-in-a-playbook
+.. _`vars usage`: https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#defining-variables-in-a-playbook
 
 1.19.3
 ======
@@ -911,9 +978,7 @@ Breaking Changes
 ----------------
 
 * Existing Testinfra tests which use the Docker driver need updating as
-  described in `398`_.
-
-.. _`398`: https://github.com/metacloud/molecule/issues/398
+  described in :pr:`398`.
 
 1.8.4
 =====
@@ -1049,12 +1114,12 @@ Breaking Changes
 
 * Added a CLI option for the ``list`` command to make the output machine
   readable.
-* Refactored commands.py to be more conducive to dispatch from DocOpt (#76).
-* Fixed issue #82 where callback plugin path wasn't being properly merged with
+* Refactored commands.py to be more conducive to dispatch from DocOpt (:issue:`76`).
+* Fixed :issue:`82` where callback plugin path wasn't being properly merged with
   user-defined values.
-* Fixed issue #84 where ``molecule init`` would produce a molecule.yml that
+* Fixed :issue:`84` where ``molecule init`` would produce a molecule.yml that
   contained trailing whitespace.
-* Fixed issue #85 preventing user-defined serverspec directory from being used.
+* Fixed :issue:`85` preventing user-defined serverspec directory from being used.
 
 1.2.1
 =====
@@ -1152,7 +1217,7 @@ Breaking Changes
 * Fixed incorrect messaging in _print_valid_providers().
 * Fixed edge case in vagrantfile template to make sure we always have default
   cpus/memory set for virtualbox instances.
-* Leveraged new config flexibility to clean up old hack for `molecule init`.
+* Leveraged new config flexibility to clean up old hack for ``molecule init``.
 * Fixed utility test for deep_merge that was failing.
 * Made print_line two different functions for stdout and stderr.
 * Updated print functions to be Python 3 ready.
